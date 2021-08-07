@@ -25,8 +25,6 @@ extension UIImage {
   }
   
   func scaleMaintainingAspectRatio(to targetSize: CGSize) -> UIImage {
-    let renderer = UIGraphicsImageRenderer(size: targetSize)
-    
     // Compute the scaling ratio for the width and height separately
     let widthScaleRatio = targetSize.width / self.size.width
     let heightScaleRatio = targetSize.height / self.size.height
@@ -43,7 +41,7 @@ extension UIImage {
       height: self.size.height * scaleFactor
     )
     
-    let scaledImage = renderer.image { _ in
+    let scaledImage = UIGraphicsImageRenderer(size: scaledImageSize).image { _ in
       self.draw(in: CGRect(origin: .zero, size: scaledImageSize))
     }
     
@@ -62,3 +60,4 @@ let image = UIImage(data: data!)
 
 let scaledLikeCavemen = image?.scaleLikeCavemen(to: CGSize(width: 100, height: 100))
 let scaledToPercentage = image?.scaleToPercent(85)
+let scledMaintainingAspect = image?.scaleMaintainingAspectRatio(to: CGSize(width: 350, height: 350))
